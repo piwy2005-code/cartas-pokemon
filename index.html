@@ -627,109 +627,70 @@
     }
 
 
-    /* =====================================
-       LISTA DE MISIONES
-       ===================================== */
+      /* =====================================
+   LISTA DE MISIONES
+   ===================================== */
 
-    const combos = [
+const misiones = [
 
-      {
-        mision:
-          "Hazme reír con un chiste malo, una cara o una imitación en menos de 1 minuto.",
+  "Hazme reír con un chiste malo, una cara o una imitación en menos de 1 minuto.",
 
-        recompensa:
-          "Dominio Total del Control Remoto / Elegir qué vemos en la pantalla hoy."
-      },
+  "Dame un abrazo apretado de 10 segundos sin soltarme.",
 
-      {
-        mision:
-          "Dame un abrazo apretado de 10 segundos sin soltarme.",
+  "Decir 3 cosas específicas que te hayan gustado de nosotros esta semana.",
 
-        recompensa:
-          "Masaje de espalda, hombros o cuello de 15 minutos hoy por la noche."
-      },
+  "Traerme un vaso con agua, un café o un snack sin que te lo pida.",
 
-      {
-        mision:
-          "Decir 3 cosas específicas que te hayan gustado de nosotros esta semana.",
+  "Gáname una partida rápida de Piedra, Papel o Tijera (al mejor de 3).",
 
-        recompensa:
-          "Elegir qué cenamos o pedimos de comer hoy sin objeciones."
-      },
+  "Buscar un meme o video corto gracioso y mostrármelo ahora mismo.",
 
-      {
-        mision:
-          "Traerme un vaso con agua, un café o un snack sin que te lo pida.",
+  "Darme un beso sorpresa de al menos 5 segundos.",
 
-        recompensa:
-          "Exento total de lavar platos o recoger tareas del hogar por el resto del día."
-      },
+  "Decir un cumplido sincero sobre algo que lleve puesto o sobre mí hoy.",
 
-      {
-        mision:
-          "Gáname una partida rápida de Piedra, Papel o Tijera (al mejor de 3).",
+  "Darme un masaje express de manos o hombros de 1 minuto.",
 
-        recompensa:
-          "Vale por tu postre, helado o antojo favorito para hoy mismo."
-      },
+  "Hacer 5 lagartijas o 10 saltos en el mismo lugar.",
 
-      {
-        mision:
-          "Buscar un meme o video corto gracioso y mostrármelo ahora mismo.",
+  "Mandar una selfie con tu cara más graciosa al chat en este instante.",
 
-        recompensa:
-          "Comodín 'Deseo Express': Pides un favor pequeño en cualquier momento de hoy."
-      },
+  "Adivinar qué número del 1 al 10 estoy pensando (tienes 3 intentos)."
 
-      {
-        mision:
-          "Darme un beso sorpresa de al menos 5 segundos.",
+];
 
-        recompensa:
-          "Sesión de 10 minutos de mimos y rascaditas de cabeza hoy antes de dormir."
-      },
 
-      {
-        mision:
-          "Decir un cumplido sincero sobre algo que lleve puesto o sobre mí hoy.",
+/* =====================================
+   LISTA DE RECOMPENSAS
+   ===================================== */
 
-        recompensa:
-          "Pones la música durante todo el trayecto o viaje en transporte/coche hoy."
-      },
+const recompensas = [
 
-      {
-        mision:
-          "Darme un masaje express de manos o hombros de 1 minuto.",
+  "Dominio Total del Control Remoto / Elegir qué vemos en la pantalla hoy.",
 
-        recompensa:
-          "Pase Libre de Maratón: Noche de videojuegos o serie con snacks preparados para ti."
-      },
+  "Masaje de espalda, hombros o cuello de 15 minutos hoy por la noche.",
 
-      {
-        mision:
-          "Hacer 5 lagartijas o 10 saltos en el mismo lugar.",
+  "Elegir qué cenamos o pedimos de comer hoy sin objeciones.",
 
-        recompensa:
-          "Pase de Victoria Instantánea: Ganas automáticamente 1 decisión menor o discusión tonta hoy."
-      },
+  "Exento total de lavar platos o recoger tareas del hogar por el resto del día.",
 
-      {
-        mision:
-          "Mandar una selfie con tu cara más graciosa al chat en este instante.",
+  "Vale por tu postre, helado o antojo favorito para hoy mismo.",
 
-        recompensa:
-          "Hoy yo preparo/sirvo la cena y tú solo disfrutas y te relajas."
-      },
+  "Comodín 'Deseo Express': Pides un favor pequeño en cualquier momento de hoy.",
 
-      {
-        mision:
-          "Adivinar qué número del 1 al 10 estoy pensando (tienes 3 intentos).",
+  "Sesión de 10 minutos de mimos y rascaditas de cabeza hoy antes de dormir.",
 
-        recompensa:
-          "Elegir la primera actividad o lugar a donde iremos en nuestra próxima salida."
-      }
+  "Pones la música durante todo el trayecto o viaje en transporte/coche hoy.",
 
-    ];
+  "Pase Libre de Maratón: Noche de videojuegos o serie con snacks preparados para ti.",
+
+  "Pase de Victoria Instantánea: Ganas automáticamente 1 decisión menor o discusión tonta hoy.",
+
+  "Hoy yo preparo/sirvo la cena y tú solo disfrutas y te relajas.",
+
+  "Elegir la primera actividad o lugar a donde iremos en nuestra próxima salida."
+
+];
 
 
     /* =====================================
@@ -748,44 +709,172 @@
 
     }
 
+/* =====================================
+   OBTENER MISIÓN DEL DÍA
+   ===================================== */
 
-    /* =====================================
-       OBTENER MISIÓN DEL DÍA
-       ===================================== */
+function obtenerMisionDelDia() {
 
-    function obtenerMisionDelDia() {
+  const clave = obtenerClaveDelDia();
 
-      const clave = obtenerClaveDelDia();
+  const guardada =
+    localStorage.getItem("mision_" + clave);
 
-      const guardada =
-        localStorage.getItem("mision_" + clave);
-
-      if (guardada !== null) {
-
-        return combos[Number(guardada)];
-
-      }
+  const recompensaGuardada =
+    localStorage.getItem("recompensa_" + clave);
 
 
-      /*
-       * Si todavía no existe una misión
-       * para este día, elegimos una.
-       */
+  /*
+   * Si ya existe una combinación para hoy,
+   * utilizamos exactamente la misma.
+   */
 
-      const indice =
-        Math.floor(
-          Math.random() * combos.length
-        );
+  if (
+    guardada !== null &&
+    recompensaGuardada !== null
+  ) {
 
-      localStorage.setItem(
-        "mision_" + clave,
-        indice
+    return {
+      mision: misiones[Number(guardada)],
+      recompensa: recompensas[Number(recompensaGuardada)]
+    };
+
+  }
+
+
+  /*
+   * Obtener misiones utilizadas anteriormente.
+   */
+
+  const misionesUsadas =
+    obtenerElementosUsados("mision_");
+
+
+  /*
+   * Obtener recompensas utilizadas anteriormente.
+   */
+
+  const recompensasUsadas =
+    obtenerElementosUsados("recompensa_");
+
+
+  /*
+   * Crear listas de opciones disponibles.
+   */
+
+  let misionesDisponibles =
+    misiones
+      .map((_, indice) => indice)
+      .filter(indice =>
+        !misionesUsadas.includes(indice)
       );
 
-      return combos[indice];
+
+  let recompensasDisponibles =
+    recompensas
+      .map((_, indice) => indice)
+      .filter(indice =>
+        !recompensasUsadas.includes(indice)
+      );
+
+
+  /*
+   * Si ya utilizamos todas las opciones,
+   * comenzamos nuevamente el ciclo.
+   */
+
+  if (misionesDisponibles.length === 0) {
+
+    misionesDisponibles =
+      misiones.map((_, indice) => indice);
+
+  }
+
+
+  if (recompensasDisponibles.length === 0) {
+
+    recompensasDisponibles =
+      recompensas.map((_, indice) => indice);
+
+  }
+
+
+  /*
+   * Elegimos aleatoriamente una misión
+   * y una recompensa.
+   */
+
+  const indiceMision =
+    misionesDisponibles[
+      Math.floor(
+        Math.random() * misionesDisponibles.length
+      )
+    ];
+
+
+  const indiceRecompensa =
+    recompensasDisponibles[
+      Math.floor(
+        Math.random() * recompensasDisponibles.length
+      )
+    ];
+
+
+  /*
+   * Guardamos las elecciones del día.
+   */
+
+  localStorage.setItem(
+    "mision_" + clave,
+    indiceMision
+  );
+
+  localStorage.setItem(
+    "recompensa_" + clave,
+    indiceRecompensa
+  );
+
+
+  return {
+    mision: misiones[indiceMision],
+    recompensa: recompensas[indiceRecompensa]
+  };
+
+}
+
+    /* =====================================
+   OBTENER ELEMENTOS UTILIZADOS
+   ===================================== */
+
+function obtenerElementosUsados(prefijo) {
+
+  const usados = [];
+
+  for (let i = 0; i < localStorage.length; i++) {
+
+    const clave =
+      localStorage.key(i);
+
+
+    if (
+      clave &&
+      clave.startsWith(prefijo)
+    ) {
+
+      const valor =
+        Number(localStorage.getItem(clave));
+
+      if (!isNaN(valor)) {
+        usados.push(valor);
+      }
 
     }
 
+  }
+
+  return usados;
+
+}
 
     /* =====================================
        MOSTRAR MISIÓN

@@ -1,12 +1,21 @@
 <!DOCTYPE html>
+
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pase de Entrenador - Aniversario</title>
+
+  <title>Trainer Pass - Sarah & Luis</title>
+
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
     body {
       background: linear-gradient(135deg, #1e1e2f 0%, #0f0f1a 100%);
       font-family: 'Roboto', sans-serif;
@@ -18,21 +27,99 @@
       padding: 20px;
       color: #fff;
     }
+
+    /* =========================
+       ENCABEZADO
+       ========================= */
+
     .header {
       font-family: 'Press Start 2P', cursive;
       font-size: 13px;
       color: #ffcb05;
       text-shadow: 2px 2px #3b4cca;
       text-align: center;
-      margin-bottom: 25px;
+      margin-bottom: 18px;
+      line-height: 1.6;
+    }
+
+    .couple {
+      font-size: 11px;
+      color: #fff;
+      text-shadow: none;
+      margin-top: 8px;
+    }
+
+    /* =========================
+       CONTADOR
+       ========================= */
+
+    .counter {
+      text-align: center;
+      margin-bottom: 22px;
+    }
+
+    .counter-label {
+      font-size: 10px;
+      color: #aaa;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 5px;
+    }
+
+    .days {
+      font-family: 'Press Start 2P', cursive;
+      font-size: 25px;
+      color: #ffcb05;
+      text-shadow: 2px 2px #3b4cca;
+    }
+
+    .days-label {
+      font-size: 9px;
+      color: #aaa;
+      margin-top: 5px;
+      text-transform: uppercase;
+    }
+
+    /* =========================
+       MENSAJE ESPECIAL
+       ========================= */
+
+    .special-message {
+      display: none;
+      background: rgba(255, 203, 5, 0.12);
+      border: 2px solid #ffcb05;
+      border-radius: 10px;
+      padding: 12px;
+      margin-bottom: 18px;
+      max-width: 340px;
+      text-align: center;
+      font-size: 12px;
       line-height: 1.5;
     }
+
+    .special-message.show {
+      display: block;
+      animation: appear 0.6s ease;
+    }
+
+    .special-title {
+      font-family: 'Press Start 2P', cursive;
+      color: #ffcb05;
+      font-size: 9px;
+      margin-bottom: 7px;
+    }
+
+    /* =========================
+       CARTA
+       ========================= */
+
     .card-container {
       perspective: 1000px;
       width: 100%;
       max-width: 340px;
       height: 480px;
     }
+
     .card {
       width: 100%;
       height: 100%;
@@ -41,9 +128,11 @@
       transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       cursor: pointer;
     }
+
     .card.flipped {
       transform: rotateY(180deg);
     }
+
     .card-face {
       position: absolute;
       width: 100%;
@@ -58,19 +147,25 @@
       padding: 20px;
       background: #2a2a40;
     }
-    /* Reverso de la Carta (Pokébola Corregida) */
+
+    /* =========================
+       REVERSO
+       ========================= */
+
     .card-back {
       background: linear-gradient(145deg, #2b32b2, #1488cc);
       align-items: center;
       justify-content: center;
       text-align: center;
     }
+
     .pokeball-wrapper {
       width: 100px;
       height: 100px;
       position: relative;
       margin-bottom: 25px;
     }
+
     .pokeball {
       width: 100%;
       height: 100%;
@@ -81,6 +176,7 @@
       overflow: hidden;
       box-shadow: 0 4px 10px rgba(0,0,0,0.3);
     }
+
     .pokeball-top {
       position: absolute;
       top: 0;
@@ -90,6 +186,7 @@
       background: #ff1111;
       border-bottom: 6px solid #222;
     }
+
     .pokeball-center {
       position: absolute;
       top: 50%;
@@ -102,19 +199,63 @@
       border-radius: 50%;
       z-index: 10;
     }
+
     .tap-text {
       font-family: 'Press Start 2P', cursive;
       font-size: 10px;
       color: #ffcb05;
       animation: pulse 1.5s infinite;
-      line-height: 1.4;
+      line-height: 1.5;
     }
-    /* Frente de la Carta */
+
+    /* =========================
+       ANIMACIÓN DE ESCANEO
+       ========================= */
+
+    .scan-screen {
+      display: none;
+      width: 100%;
+      max-width: 340px;
+      height: 480px;
+      border: 8px solid #ffcb05;
+      border-radius: 18px;
+      background: #111;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      text-align: center;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    }
+
+    .scan-screen.active {
+      display: flex;
+      animation: appear 0.3s ease;
+    }
+
+    .lightning {
+      font-size: 55px;
+      margin-bottom: 30px;
+      animation: lightning 0.35s infinite alternate;
+    }
+
+    .scan-text {
+      font-family: 'Press Start 2P', cursive;
+      font-size: 10px;
+      color: #ffcb05;
+      line-height: 1.8;
+      min-height: 50px;
+    }
+
+    /* =========================
+       FRENTE
+       ========================= */
+
     .card-front {
       transform: rotateY(180deg);
       background: #fff;
       color: #333;
     }
+
     .card-header {
       display: flex;
       justify-content: space-between;
@@ -122,16 +263,25 @@
       border-bottom: 2px solid #ddd;
       padding-bottom: 8px;
     }
+
     .card-title {
       font-family: 'Press Start 2P', cursive;
       font-size: 10px;
       color: #111;
     }
+
     .hp-badge {
       font-size: 12px;
       font-weight: bold;
       color: #e53935;
     }
+
+    .mission-date {
+      font-size: 9px;
+      color: #777;
+      margin-top: 5px;
+    }
+
     .section-title {
       font-size: 11px;
       font-weight: bold;
@@ -140,6 +290,7 @@
       color: #3b4cca;
       margin-bottom: 5px;
     }
+
     .box {
       background: #f4f5f9;
       border-left: 4px solid #ffcb05;
@@ -147,12 +298,14 @@
       border-radius: 6px;
       margin-bottom: 12px;
     }
+
     .box-text {
       font-size: 13px;
       line-height: 1.4;
       color: #222;
       font-weight: bold;
     }
+
     .rule-banner {
       background: #ffebee;
       color: #c62828;
@@ -163,153 +316,608 @@
       font-weight: bold;
       text-transform: uppercase;
     }
-    .btn-reset {
-      margin-top: 20px;
-      background: #ffcb05;
-      color: #111;
-      border: none;
-      padding: 12px 20px;
-      border-radius: 20px;
-      font-family: 'Press Start 2P', cursive;
-      font-size: 9px;
-      cursor: pointer;
-      box-shadow: 0 4px #c79c00;
-    }
-    .btn-reset:active {
-      box-shadow: 0 1px #c79c00;
-      transform: translateY(3px);
-    }
+
+    /* =========================
+       ANIMACIONES
+       ========================= */
+
     @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.4; }
+      0%, 100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0.4;
+      }
     }
+
+    @keyframes lightning {
+      from {
+        transform: scale(1);
+        opacity: 0.5;
+      }
+
+      to {
+        transform: scale(1.2);
+        opacity: 1;
+      }
+    }
+
+    @keyframes appear {
+      from {
+        opacity: 0;
+        transform: scale(0.95);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
   </style>
+
 </head>
+
 <body>
 
-  <div class="header">PASAPORTE DE ENTRENADOR<br>3ER ANIVERSARIO</div>
+  <!-- =========================
+       ENCABEZADO
+       ========================= -->
 
-  <div class="card-container">
-    <div class="card" id="pokemonCard" onclick="flipCard()">
-      
-      <!-- Reverso de la Carta -->
-      <div class="card-face card-back">
-        <div class="pokeball-wrapper">
-          <div class="pokeball">
-            <div class="pokeball-top"></div>
-          </div>
-          <div class="pokeball-center"></div>
-        </div>
-        <div class="tap-text">TOCA PARA REVELAR MISIÓN</div>
+  <div class="header">
+    PASAPORTE DE ENTRENADOR
+
+```
+<div class="couple">
+  SARAH ❤️ LUIS
+</div>
+```
+
+  </div>
+
+  <!-- =========================
+       CONTADOR
+       ========================= -->
+
+  <div class="counter">
+
+```
+<div class="counter-label">
+  Juntos desde el
+</div>
+
+<div class="days" id="daysTogether">
+  ...
+</div>
+
+<div class="days-label">
+  días de aventura
+</div>
+```
+
+  </div>
+
+  <!-- =========================
+       MENSAJE ESPECIAL
+       ========================= -->
+
+  <div class="special-message" id="specialMessage">
+
+```
+<div class="special-title" id="specialTitle"></div>
+
+<div id="specialText"></div>
+```
+
+  </div>
+
+  <!-- =========================
+       CARTA
+       ========================= -->
+
+  <div class="card-container" id="cardContainer">
+
+```
+<div class="card" id="pokemonCard" onclick="revealMission()">
+
+  <!-- REVERSO -->
+
+  <div class="card-face card-back">
+
+    <div class="pokeball-wrapper">
+
+      <div class="pokeball">
+        <div class="pokeball-top"></div>
       </div>
 
-      <!-- Frente de la Carta -->
-      <div class="card-face card-front">
-        <div class="card-header">
-          <span class="card-title">MISIÓN DIARIA</span>
-          <span class="hp-badge">HP 100</span>
-        </div>
+      <div class="pokeball-center"></div>
 
-        <div>
-          <div class="section-title">⚔️ Misión de Hoy (Cumplir Hoy):</div>
-          <div class="box">
-            <div class="box-text" id="misionText">Cargando...</div>
-          </div>
+    </div>
 
-          <div class="section-title">🏆 Recompensa (Cobrar Hoy):</div>
-          <div class="box" style="border-left-color: #3b4cca;">
-            <div class="box-text" id="recompensaText">Cargando...</div>
-          </div>
-        </div>
+    <div class="tap-text">
+      TOCA PARA<br>
+      REVELAR MISIÓN
+    </div>
 
-        <div class="rule-banner">
-          ⚠️ Regla: ¡Se cumple y se cobra HOY MISMO!
-        </div>
+  </div>
+
+
+  <!-- FRENTE -->
+
+  <div class="card-face card-front">
+
+    <div>
+
+      <div class="card-header">
+
+        <span class="card-title">
+          MISIÓN DIARIA
+        </span>
+
+        <span class="hp-badge">
+          HP 100
+        </span>
+
+      </div>
+
+      <div class="mission-date" id="missionDate">
+        ...
       </div>
 
     </div>
+
+
+    <div>
+
+      <div class="section-title">
+        ⚔️ Misión de Hoy
+      </div>
+
+      <div class="box">
+
+        <div class="box-text" id="misionText">
+          Cargando...
+        </div>
+
+      </div>
+
+
+      <div class="section-title">
+        🏆 Recompensa
+      </div>
+
+      <div class="box" style="border-left-color: #3b4cca;">
+
+        <div class="box-text" id="recompensaText">
+          Cargando...
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="rule-banner">
+      ⚠️ CUMPLE Y COBRA HOY MISMO
+    </div>
+
   </div>
 
-  <button class="btn-reset" onclick="generarMision(event)">PROBAR OTRA MISIÓN</button>
+</div>
+```
+
+  </div>
+
+  <!-- =========================
+       PANTALLA DE ESCANEO
+       ========================= -->
+
+  <div class="scan-screen" id="scanScreen">
+
+```
+<div class="lightning">
+  ⚡
+</div>
+
+<div class="scan-text" id="scanText">
+  ANALIZANDO ENTRENADOR...
+</div>
+```
+
+  </div>
 
   <script>
-    const combos = [
-      {
-        mision: "Hazme reír con un chiste malo, una cara o una imitación en menos de 1 minuto.",
-        recompensa: "Dominio Total del Control Remoto / Elegir qué vemos en la pantalla hoy."
-      },
-      {
-        mision: "Dame un abrazo apretado de 10 segundos sin soltarme.",
-        recompensa: "Masaje de espalda, hombros o cuello de 15 minutos hoy por la noche."
-      },
-      {
-        mision: "Decir 3 cosas específicas que te hayan gustado de nosotros esta semana.",
-        recompensa: "Elegir qué cenamos o pedimos de comer hoy sin objeciones."
-      },
-      {
-        mision: "Traerme un vaso con agua, un café o un snack sin que te lo pida.",
-        recompensa: "Exento total de lavar platos o recoger tareas del hogar por el resto del día."
-      },
-      {
-        mision: "Gáname una partida rápida de Piedra, Papel o Tijera (al mejor de 3).",
-        recompensa: "Vale por tu postre, helado o antojo favorito para hoy mismo."
-      },
-      {
-        mision: "Buscar un meme o video corto gracioso y mostrármelo ahora mismo.",
-        recompensa: "Comodín 'Deseo Express': Pides un favor pequeño en cualquier momento de hoy."
-      },
-      {
-        mision: "Darme un beso sorpresa de al menos 5 segundos.",
-        recompensa: "Sesión de 10 minutos de mimos y rascaditas de cabeza hoy antes de dormir."
-      },
-      {
-        mision: "Decir un cumplido sincero sobre algo que lleve puesto o sobre mí hoy.",
-        recompensa: "Pones la música durante todo el trayecto o viaje en transporte/coche hoy."
-      },
-      {
-        mision: "Darme un masaje express de manos o hombros de 1 minuto.",
-        recompensa: "Pase Libre de Maratón: Noche de videojuegos o serie con snacks preparados para ti."
-      },
-      {
-        mision: "Hacer 5 lagartijas o 10 saltos en el mismo lugar.",
-        recompensa: "Pase de Victoria Instantánea: Ganas automáticamente 1 decisión menor o discusión tonta hoy."
-      },
-      {
-        mision: "Mandar una selfie con tu cara más graciosa al chat en este instante.",
-        recompensa: "Hoy yo preparo/sirvo la cena y tú solo disfrutas y te relajas."
-      },
-      {
-        mision: "Adivinar qué número del 1 al 10 estoy pensando (tienes 3 intentos).",
-        recompensa: "Elegir la primera actividad o lugar a donde iremos en nuestra próxima salida."
+
+    /* =====================================
+       DATOS DE LA RELACIÓN
+       ===================================== */
+
+    const fechaInicio = new Date(2023, 8, 27);
+    // Los meses empiezan en 0:
+    // 8 = septiembre
+
+
+    /* =====================================
+       CONTADOR DE DÍAS
+       ===================================== */
+
+    function actualizarContador() {
+
+      const hoy = new Date();
+
+      const inicio = new Date(
+        fechaInicio.getFullYear(),
+        fechaInicio.getMonth(),
+        fechaInicio.getDate()
+      );
+
+      const fechaActual = new Date(
+        hoy.getFullYear(),
+        hoy.getMonth(),
+        hoy.getDate()
+      );
+
+      const diferencia =
+        fechaActual - inicio;
+
+      const dias =
+        Math.floor(
+          diferencia / (1000 * 60 * 60 * 24)
+        );
+
+      document.getElementById("daysTogether")
+        .innerText = dias.toLocaleString("es-MX");
+
+    }
+
+
+    /* =====================================
+       MENSAJES ESPECIALES
+       ===================================== */
+
+    function comprobarFechaEspecial() {
+
+      const hoy = new Date();
+
+      const dia = hoy.getDate();
+      const mes = hoy.getMonth();
+
+      const mensaje = document.getElementById("specialMessage");
+      const titulo = document.getElementById("specialTitle");
+      const texto = document.getElementById("specialText");
+
+
+      /*
+       * ANIVERSARIO
+       * 27 de septiembre
+       */
+
+      if (dia === 27 && mes === 8) {
+
+        const anios =
+          hoy.getFullYear() -
+          fechaInicio.getFullYear();
+
+        mensaje.classList.add("show");
+
+        titulo.innerText =
+          "🏆 ¡FELIZ ANIVERSARIO!";
+
+        texto.innerText =
+          `Hoy celebramos ${anios} años de nuestra aventura. ❤️`;
+
+        return;
       }
+
+
+      /*
+       * MESIVERSARIO
+       */
+
+      if (dia === 27) {
+
+        mensaje.classList.add("show");
+
+        titulo.innerText =
+          "🎉 ¡FELIZ MESIVERSARIO!";
+
+        texto.innerText =
+          "Otro mes juntos. ❤️";
+
+      }
+
+    }
+
+
+    /* =====================================
+       LISTA DE MISIONES
+       ===================================== */
+
+    const combos = [
+
+      {
+        mision:
+          "Hazme reír con un chiste malo, una cara o una imitación en menos de 1 minuto.",
+
+        recompensa:
+          "Dominio Total del Control Remoto / Elegir qué vemos en la pantalla hoy."
+      },
+
+      {
+        mision:
+          "Dame un abrazo apretado de 10 segundos sin soltarme.",
+
+        recompensa:
+          "Masaje de espalda, hombros o cuello de 15 minutos hoy por la noche."
+      },
+
+      {
+        mision:
+          "Decir 3 cosas específicas que te hayan gustado de nosotros esta semana.",
+
+        recompensa:
+          "Elegir qué cenamos o pedimos de comer hoy sin objeciones."
+      },
+
+      {
+        mision:
+          "Traerme un vaso con agua, un café o un snack sin que te lo pida.",
+
+        recompensa:
+          "Exento total de lavar platos o recoger tareas del hogar por el resto del día."
+      },
+
+      {
+        mision:
+          "Gáname una partida rápida de Piedra, Papel o Tijera (al mejor de 3).",
+
+        recompensa:
+          "Vale por tu postre, helado o antojo favorito para hoy mismo."
+      },
+
+      {
+        mision:
+          "Buscar un meme o video corto gracioso y mostrármelo ahora mismo.",
+
+        recompensa:
+          "Comodín 'Deseo Express': Pides un favor pequeño en cualquier momento de hoy."
+      },
+
+      {
+        mision:
+          "Darme un beso sorpresa de al menos 5 segundos.",
+
+        recompensa:
+          "Sesión de 10 minutos de mimos y rascaditas de cabeza hoy antes de dormir."
+      },
+
+      {
+        mision:
+          "Decir un cumplido sincero sobre algo que lleve puesto o sobre mí hoy.",
+
+        recompensa:
+          "Pones la música durante todo el trayecto o viaje en transporte/coche hoy."
+      },
+
+      {
+        mision:
+          "Darme un masaje express de manos o hombros de 1 minuto.",
+
+        recompensa:
+          "Pase Libre de Maratón: Noche de videojuegos o serie con snacks preparados para ti."
+      },
+
+      {
+        mision:
+          "Hacer 5 lagartijas o 10 saltos en el mismo lugar.",
+
+        recompensa:
+          "Pase de Victoria Instantánea: Ganas automáticamente 1 decisión menor o discusión tonta hoy."
+      },
+
+      {
+        mision:
+          "Mandar una selfie con tu cara más graciosa al chat en este instante.",
+
+        recompensa:
+          "Hoy yo preparo/sirvo la cena y tú solo disfrutas y te relajas."
+      },
+
+      {
+        mision:
+          "Adivinar qué número del 1 al 10 estoy pensando (tienes 3 intentos).",
+
+        recompensa:
+          "Elegir la primera actividad o lugar a donde iremos en nuestra próxima salida."
+      }
+
     ];
 
-    let flipped = false;
 
-    function generarMision(e) {
-      if(e) e.stopPropagation();
-      const card = document.getElementById('pokemonCard');
-      card.classList.remove('flipped');
-      flipped = false;
+    /* =====================================
+       FECHA DE HOY COMO IDENTIFICADOR
+       ===================================== */
+
+    function obtenerClaveDelDia() {
+
+      const hoy = new Date();
+
+      const año = hoy.getFullYear();
+      const mes = String(hoy.getMonth() + 1).padStart(2, "0");
+      const dia = String(hoy.getDate()).padStart(2, "0");
+
+      return `${año}-${mes}-${dia}`;
+
+    }
+
+
+    /* =====================================
+       OBTENER MISIÓN DEL DÍA
+       ===================================== */
+
+    function obtenerMisionDelDia() {
+
+      const clave = obtenerClaveDelDia();
+
+      const guardada =
+        localStorage.getItem("mision_" + clave);
+
+      if (guardada !== null) {
+
+        return combos[Number(guardada)];
+
+      }
+
+
+      /*
+       * Si todavía no existe una misión
+       * para este día, elegimos una.
+       */
+
+      const indice =
+        Math.floor(
+          Math.random() * combos.length
+        );
+
+      localStorage.setItem(
+        "mision_" + clave,
+        indice
+      );
+
+      return combos[indice];
+
+    }
+
+
+    /* =====================================
+       MOSTRAR MISIÓN
+       ===================================== */
+
+    function cargarMision() {
+
+      const mision =
+        obtenerMisionDelDia();
+
+      document.getElementById("misionText")
+        .innerText = mision.mision;
+
+      document.getElementById("recompensaText")
+        .innerText = mision.recompensa;
+
+
+      const hoy = new Date();
+
+      const opciones = {
+        day: "numeric",
+        month: "long",
+        year: "numeric"
+      };
+
+      document.getElementById("missionDate")
+        .innerText =
+          hoy.toLocaleDateString(
+            "es-MX",
+            opciones
+          );
+
+    }
+
+
+    /* =====================================
+       REVELAR MISIÓN
+       ===================================== */
+
+    function revealMission() {
+
+      const card =
+        document.getElementById("pokemonCard");
+
+      const container =
+        document.getElementById("cardContainer");
+
+      const scan =
+        document.getElementById("scanScreen");
+
+      const scanText =
+        document.getElementById("scanText");
+
+
+      /*
+       * Evitamos que vuelva a iniciar
+       * la animación mientras está activa.
+       */
+
+      if (scan.classList.contains("active")) {
+        return;
+      }
+
+
+      /*
+       * Ocultamos la carta
+       */
+
+      container.style.display = "none";
+
+      scan.classList.add("active");
+
+
+      /*
+       * Primera fase
+       */
+
+      scanText.innerText =
+        "ANALIZANDO ENTRENADOR...";
+
 
       setTimeout(() => {
-        const randomIndex = Math.floor(Math.random() * combos.length);
-        document.getElementById('misionText').innerText = combos[randomIndex].mision;
-        document.getElementById('recompensaText').innerText = combos[randomIndex].recompensa;
-      }, 300);
+
+        scanText.innerText =
+          "⚡ BUSCANDO MISIÓN...";
+
+      }, 900);
+
+
+      /*
+       * Segunda fase
+       */
+
+      setTimeout(() => {
+
+        scanText.innerText =
+          "⚡⚡ MISIÓN ENCONTRADA ⚡⚡";
+
+      }, 1800);
+
+
+      /*
+       * Finalmente mostramos la carta
+       */
+
+      setTimeout(() => {
+
+        scan.classList.remove("active");
+
+        cargarMision();
+
+        container.style.display = "block";
+
+        card.classList.add("flipped");
+
+      }, 2700);
+
     }
 
-    function flipCard() {
-      const card = document.getElementById('pokemonCard');
-      flipped = !flipped;
-      if (flipped) {
-        card.classList.add('flipped');
-      } else {
-        card.classList.remove('flipped');
-      }
-    }
 
-    generarMision();
+    /* =====================================
+       INICIALIZACIÓN
+       ===================================== */
+
+    actualizarContador();
+
+    comprobarFechaEspecial();
+
   </script>
+
 </body>
 </html>

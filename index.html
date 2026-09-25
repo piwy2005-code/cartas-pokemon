@@ -318,6 +318,53 @@
     }
 
     /* =========================
+   BOTÓN DE COMPLETAR
+   ========================= */
+
+.complete-button {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background: #3b4cca;
+  color: #fff;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 9px;
+  cursor: pointer;
+  transition: transform 0.2s ease,
+              background 0.2s ease;
+}
+
+.complete-button:hover {
+  background: #2f3da8;
+  transform: scale(1.03);
+}
+
+.complete-button:active {
+  transform: scale(0.97);
+}
+
+.complete-button.completed {
+  background: #4caf50;
+  cursor: default;
+}
+
+.completion-message {
+  display: none;
+  margin-top: 8px;
+  text-align: center;
+  font-size: 11px;
+  font-weight: bold;
+  color: #2e7d32;
+  line-height: 1.4;
+}
+
+.completion-message.show {
+  display: block;
+  animation: appear 0.4s ease;
+}
+
+    /* =========================
        ANIMACIONES
        ========================= */
 
@@ -494,7 +541,19 @@
 
     </div>
 
+<button
+  class="complete-button"
+  id="completeButton"
+  onclick="completarMision()"
+>
+  ✓ COMPLETAR MISIÓN
+</button>
 
+<div
+  class="completion-message"
+  id="completionMessage"
+>
+</div>
     <div class="rule-banner">
       ⚠️ CUMPLE Y COBRA HOY MISMO
     </div>
@@ -1002,10 +1061,103 @@ function obtenerElementosUsados(prefijo) {
             "es-MX",
             opciones
           );
+        /*
+   * Recuperar estado de la misión.
+   */
+
+  const clave =
+    obtenerClaveDelDia();
+
+  const completada =
+    localStorage.getItem(
+      "mision_completada_" + clave
+    );
+
+
+  if (completada === "true") {
+
+    const boton =
+      document.getElementById("completeButton");
+
+    boton.innerText =
+      "✓ MISIÓN COMPLETADA";
+
+    boton.classList.add("completed");
+
+
+    const mensaje =
+      document.getElementById("completionMessage");
+
+    mensaje.innerText =
+      "🎉 ¡MISIÓN COMPLETADA! Recompensa desbloqueada. 🏆";
+
+    mensaje.classList.add("show");
+
+  }
 
     }
 
+/* =====================================
+   COMPLETAR MISIÓN
+   ===================================== */
 
+function completarMision() {
+
+  const clave = obtenerClaveDelDia();
+
+  const completada =
+    localStorage.getItem(
+      "mision_completada_" + clave
+    );
+
+
+  /*
+   * Si ya fue completada,
+   * no hacemos nada.
+   */
+
+  if (completada === "true") {
+    return;
+  }
+
+
+  /*
+   * Guardamos que la misión de hoy
+   * fue completada.
+   */
+
+  localStorage.setItem(
+    "mision_completada_" + clave,
+    "true"
+  );
+
+
+  /*
+   * Cambiamos el botón.
+   */
+
+  const boton =
+    document.getElementById("completeButton");
+
+  boton.innerText =
+    "✓ MISIÓN COMPLETADA";
+
+  boton.classList.add("completed");
+
+
+  /*
+   * Mostramos mensaje.
+   */
+
+  const mensaje =
+    document.getElementById("completionMessage");
+
+  mensaje.innerText =
+    "🎉 ¡MISIÓN COMPLETADA! Recompensa desbloqueada. 🏆";
+
+  mensaje.classList.add("show");
+
+}
     /* =====================================
        REVELAR MISIÓN
        ===================================== */

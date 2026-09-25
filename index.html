@@ -428,7 +428,7 @@
   <div class="counter">
 
 <div class="counter-label">
-  Juntos desde el 27 de Septiembre de 2023
+  27/09/2023
 </div>
 
 <div class="days" id="daysTogether">
@@ -439,9 +439,41 @@
   días de aventura
 </div>
 
+<div class="streak">
 
+  <div class="streak-current">
+    🔥 RACHA: <span id="streakCurrent">0</span> DÍAS
   </div>
 
+  <div class="streak-record">
+    🏆 RÉCORD: <span id="streakRecord">0</span> DÍAS
+  </div>
+
+</div>
+  </div>
+/* =========================
+   RACHA
+   ========================= */
+
+.streak {
+  margin-top: 12px;
+  text-align: center;
+}
+
+.streak-current {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 10px;
+  color: #ffcb05;
+  text-shadow: 1px 1px #3b4cca;
+  margin-bottom: 6px;
+}
+
+.streak-record {
+  font-size: 9px;
+  color: #aaa;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
   <!-- =========================
        MENSAJE ESPECIAL
        ========================= -->
@@ -1130,7 +1162,7 @@ function completarMision() {
     "mision_completada_" + clave,
     "true"
   );
-
+actualizarRacha();
 
   /*
    * Cambiamos el botón.
@@ -1156,6 +1188,139 @@ function completarMision() {
     "🎉 ¡MISIÓN COMPLETADA! Recompensa desbloqueada. 🏆";
 
   mensaje.classList.add("show");
+
+}
+    /* =====================================
+   SISTEMA DE RACHA
+   ===================================== */
+
+function obtenerFechaConDesplazamiento(dias) {
+
+  const hoy = new Date();
+
+  const fecha = new Date(
+    hoy.getFullYear(),
+    hoy.getMonth(),
+    hoy.getDate() + dias
+  );
+
+  const año =
+    fecha.getFullYear();
+
+  const mes =
+    String(fecha.getMonth() + 1).padStart(2, "0");
+
+  const dia =
+    String(fecha.getDate()).padStart(2, "0");
+
+  return `${año}-${mes}-${dia}`;
+}
+
+
+/* =====================================
+   CALCULAR RACHA ACTUAL
+   ===================================== */
+function calcularRachaActual() {
+
+  let racha = 0;
+
+  /*
+   * Primero comprobamos si hoy está completado.
+   */
+
+  const hoy =
+    obtenerFechaConDesplazamiento(0);
+
+  const hoyCompletado =
+    localStorage.getItem(
+      "mision_completada_" + hoy
+    ) === "true";
+
+
+  /*
+   * Si hoy todavía no está completado,
+   * comenzamos desde ayer.
+   *
+   * Esto permite mantener visible la racha
+   * durante el día.
+   */
+
+  let desplazamiento =
+    hoyCompletado ? 0 : -1;
+
+
+  while (true) {
+
+    const fecha =
+      obtenerFechaConDesplazamiento(
+        desplazamiento
+      );
+
+    const completada =
+      localStorage.getItem(
+        "mision_completada_" + fecha
+      ) === "true";
+
+    if (!completada) {
+      break;
+    }
+
+    racha++;
+
+    desplazamiento--;
+
+  }
+
+  return racha;
+}
+
+
+/* =====================================
+   ACTUALIZAR RÉCORD
+   ===================================== */
+
+function actualizarRecord(racha) {
+
+  const recordGuardado =
+    Number(
+      localStorage.getItem(
+        "racha_record"
+      )
+    ) || 0;
+
+  if (racha > recordGuardado) {
+
+    localStorage.setItem(
+      "racha_record",
+      racha
+    );
+
+    return racha;
+  }
+
+  return recordGuardado;
+}
+
+
+/* =====================================
+   MOSTRAR RACHA
+   ===================================== */
+
+function actualizarRacha() {
+
+  const racha =
+    calcularRachaActual();
+
+  const record =
+    actualizarRecord(racha);
+
+  document.getElementById(
+    "streakCurrent"
+  ).innerText = racha;
+
+  document.getElementById(
+    "streakRecord"
+  ).innerText = record;
 
 }
     /* =====================================
@@ -1250,6 +1415,8 @@ function completarMision() {
     actualizarContador();
 
     comprobarFechaEspecial();
+
+actualizarRacha();
 
   </script>
 

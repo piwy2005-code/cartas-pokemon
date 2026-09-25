@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pase de Entrenador - Aniversario</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: linear-gradient(135deg, #1e1e2f 0%, #0f0f1a 100%);
+      font-family: 'Roboto', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      color: #fff;
+    }
+    .header {
+      font-family: 'Press Start 2P', cursive;
+      font-size: 14px;
+      color: #ffcb05;
+      text-shadow: 2px 2px #3b4cca;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .card-container {
+      perspective: 1000px;
+      width: 100%;
+      max-width: 340px;
+      height: 480px;
+    }
+    .card {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      cursor: pointer;
+    }
+    .card.flipped {
+      transform: rotateY(180deg);
+    }
+    .card-face {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 18px;
+      border: 8px solid #ffcb05;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 20px;
+      background: #2a2a40;
+    }
+    /* Reverso de la Carta */
+    .card-back {
+      background: linear-gradient(145deg, #2b32b2, #1488cc);
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    .pokeball-icon {
+      width: 100px;
+      height: 100px;
+      background: radial-gradient(circle, #fff 0%, #e6e6e6 100%);
+      border-radius: 50%;
+      border: 8px solid #333;
+      position: relative;
+      margin-bottom: 20px;
+    }
+    .pokeball-icon::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      width: 100%;
+      height: 50%;
+      background: #ff1111;
+      border-radius: 50px 50px 0 0;
+    }
+    .pokeball-icon::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 24px;
+      height: 24px;
+      background: #fff;
+      border: 5px solid #333;
+      border-radius: 50%;
+    }
+    .tap-text {
+      font-family: 'Press Start 2P', cursive;
+      font-size: 10px;
+      color: #ffcb05;
+      animation: pulse 1.5s infinite;
+    }
+    /* Frente de la Carta */
+    .card-front {
+      transform: rotateY(180deg);
+      background: #fff;
+      color: #333;
+    }
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #ddd;
+      padding-bottom: 8px;
+    }
+    .card-title {
+      font-family: 'Press Start 2P', cursive;
+      font-size: 10px;
+      color: #111;
+    }
+    .hp-badge {
+      font-size: 12px;
+      font-weight: bold;
+      color: #e53935;
+    }
+    .section-title {
+      font-size: 11px;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #3b4cca;
+      margin-bottom: 5px;
+    }
+    .box {
+      background: #f4f5f9;
+      border-left: 4px solid #ffcb05;
+      padding: 12px;
+      border-radius: 6px;
+      margin-bottom: 12px;
+    }
+    .box-text {
+      font-size: 14px;
+      line-height: 1.4;
+      color: #222;
+      font-weight: bold;
+    }
+    .rule-banner {
+      background: #ffebee;
+      color: #c62828;
+      font-size: 10px;
+      text-align: center;
+      padding: 6px;
+      border-radius: 4px;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+    .btn-reset {
+      margin-top: 20px;
+      background: #ffcb05;
+      color: #111;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 20px;
+      font-family: 'Press Start 2P', cursive;
+      font-size: 9px;
+      cursor: pointer;
+      box-shadow: 0 4px #c79c00;
+    }
+    .btn-reset:active {
+      box-shadow: 0 1px #c79c00;
+      transform: translateY(3px);
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">MISIÓN DIARIA DE ENTRENADOR</div>
+
+  <div class="card-container">
+    <div class="card" id="pokemonCard" onclick="flipCard()">
+      
+      <!-- Reverso de la Carta -->
+      <div class="card-face card-back">
+        <div class="pokeball-icon"></div>
+        <div class="tap-text">TOCA PARA DESBLOQUEAR</div>
+      </div>
+
+      <!-- Frente de la Carta -->
+      <div class="card-face card-front">
+        <div class="card-header">
+          <span class="card-title">PASE VIP</span>
+          <span class="hp-badge">HP 100</span>
+        </div>
+
+        <div>
+          <div class="section-title">⚔️ Misión de Hoy (Cumplir Hoy):</div>
+          <div class="box">
+            <div class="box-text" id="misionText">Cargando...</div>
+          </div>
+
+          <div class="section-title">🏆 Recompensa (Cobrar Hoy):</div>
+          <div class="box" style="border-left-color: #3b4cca;">
+            <div class="box-text" id="recompensaText">Cargando...</div>
+          </div>
+        </div>
+
+        <div class="rule-banner">
+          ⚠️ Regla: ¡Se cumple y se cobra HOY MISMO!
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <button class="btn-reset" onclick="generarMision(event)">NUEVA MISIÓN</button>
+
+  <script>
+    // Lista ampliada de Misiones Rápidas y Recompensas del Mismo Día
+    const combos = [
+      {
+        mision: "Hazme reír con un chiste malo, una cara o una imitación en menos de 1 minuto.",
+        recompensa: "Dominio Total del Control Remoto / Elegir qué vemos en la pantalla hoy."
+      },
+      {
+        mision: "Dame un abrazo apretado de 10 segundos sin soltarme.",
+        recompensa: "Masaje de espalda, hombros o cuello de 15 minutos hoy por la noche."
+      },
+      {
+        mision: "Decir 3 cosas específicas que te hayan gustado de nosotros esta semana.",
+        recompensa: "Elegir qué cenamos o pedimos de comer hoy sin objeciones."
+      },
+      {
+        mision: "Traerme un vaso con agua, un café o un snack sin que te lo pida.",
+        recompensa: "Exento total de lavar platos o recoger tareas del hogar por el resto del día."
+      },
+      {
+        mision: "Gáname una partida rápida de Piedra, Papel o Tijera (al mejor de 3).",
+        recompensa: "Vale por tu postre, helado o antojo favorito para hoy mismo."
+      },
+      {
+        mision: "Buscar un meme o video corto gracioso y mostrármelo ahora mismo.",
+        recompensa: "Comodín 'Deseo Express': Pides un favor pequeño en cualquier momento de hoy."
+      },
+      {
+        mision: "Darme un beso sorpresa de al menos 5 segundos.",
+        recompensa: "Sesión de 10 minutos de mimos y rascaditas de cabeza hoy antes de dormir."
+      },
+      {
+        mision: "Decir un cumplido sincero sobre algo que lleve puesto o sobre mí hoy.",
+        recompensa: "Pones la música durante todo el trayecto o viaje en transporte/coche hoy."
+      },
+      {
+        mision: "Darme un masaje express de manos o hombros de 1 minuto.",
+        recompensa: "Pase Libre de Maratón: Noche de videojuegos o serie con snacks preparados para ti."
+      },
+      {
+        mision: "Hacer 5 lagartijas o 10 saltos en el mismo lugar.",
+        recompensa: "Pase de Victoria Instantánea: Ganas automáticamente 1 decisión menor o discusión tonta hoy."
+      },
+      {
+        mision: "Mandar una selfie con tu cara más graciosa al chat en este instante.",
+        recompensa: "Hoy yo preparo/sirvo la cena y tú solo disfrutas y te relajas."
+      },
+      {
+        mision: "Adivinar qué número del 1 al 10 estoy pensando (tienes 3 intentos).",
+        recompensa: "Elegir la primera actividad o lugar a donde iremos en nuestra próxima salida."
+      }
+    ];
+
+    let flipped = false;
+
+    function generarMision(e) {
+      if(e) e.stopPropagation();
+      const card = document.getElementById('pokemonCard');
+      card.classList.remove('flipped');
+      flipped = false;
+
+      setTimeout(() => {
+        const randomIndex = Math.floor(Math.random() * combos.length);
+        document.getElementById('misionText').innerText = combos[randomIndex].mision;
+        document.getElementById('recompensaText').innerText = combos[randomIndex].recompensa;
+      }, 300);
+    }
+
+    function flipCard() {
+      const card = document.getElementById('pokemonCard');
+      flipped = !flipped;
+      if (flipped) {
+        card.classList.add('flipped');
+      } else {
+        card.classList.remove('flipped');
+      }
+    }
+
+    // Inicializar primera misión al cargar
+    generarMision();
+  </script>
+</body>
+</html>
